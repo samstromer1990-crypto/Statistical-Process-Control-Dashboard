@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P-Chart calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/p_chart.css') }}">
+</head>
+<body>
+    <a href="/">← Back to Home</a>
+    <h2>P-Chart Calculator</h2>
+    
+    <div class="about-section">
+        <h3>About P-Chart</h3>
+        <p>A P-Chart (Proportion Chart) is a type of control chart used to monitor the proportion or percentage of defective items in samples. Unlike C-Charts, P-Charts can handle varying sample sizes.</p>
+        <p><strong>What it measures:</strong> The proportion of nonconforming or defective items in each sample, expressed as a percentage or fraction.</p>
+        <p><strong>When to use:</strong> When monitoring the fraction defective in samples of varying size, or when the process involves go/no-go type inspections.</p>
+    </div>
+    
+    {% block content %}
+    <form method="POST">
+    <table border="1" id="dataTable">
+        <tr>
+            <th>Sample</th>
+            <th>Defectives (d)</th>
+            <th>Sample Size (n)</th>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td><input type="text" name="d"></td>
+            <td><input type="text" name="n"></td>
+        </tr>
+    </table>
+
+    <br>
+    <button type="button" onclick="addRow()">➕ Add Row</button>
+    <button type="submit">Generate P-Chart</button><br><br>
+    <label>X Label:</label><br>
+    <input type="text" name="xlabel"><br><br>
+
+    <label>Y Label:</label><br>
+    <input type="text" name="ylabel"><br><br>
+
+
+    
+</form>
+    <h3>Graph Output:
+    </h3>
+    {% if show_graph %}
+        <img src="{{url_for('static',filename='graph.png')}}">
+    {% else %}
+        <p>No graph to display.</p>
+    {% endif %}
+    {% endblock %}
+
+<script>
+let rowCount = 1;
+
+function addRow() {
+    rowCount++;
+
+    let table = document.getElementById("dataTable");
+    let row = table.insertRow();
+
+    row.innerHTML = `
+        <td>${rowCount}</td>
+        <td><input type="text" name="d"></td>
+        <td><input type="text" name="n"></td>
+    `;
+}
+</script>
+</body>
+</html>

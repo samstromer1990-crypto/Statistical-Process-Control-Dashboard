@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NP-Chart calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/np_chart.css') }}">
+</head>
+<body>
+    <a href="/">← Back to Home</a>
+    <h2>NP-Chart Calculator</h2>
+    
+    <div class="about-section">
+        <h3>About NP-Chart</h3>
+        <p>An NP-Chart (Number Defective Chart) is a type of control chart used to monitor the number of defective items in samples of constant size. It's similar to a P-Chart but tracks counts rather than proportions.</p>
+        <p><strong>What it measures:</strong> The actual number of nonconforming or defective items in each sample of fixed size.</p>
+        <p><strong>When to use:</strong> When sample sizes are constant and you want to monitor the number of defectives rather than the proportion defective.</p>
+    </div>
+    
+    {% block content %}
+    <form method="POST">
+    <table border="1" id="dataTable">
+        <tr>
+            <th>Sample</th>
+            <th>Defectives (d)</th>
+            
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td><input type="text" name="d"></td>
+
+        </tr>
+    </table>
+
+    <br>
+    <button type="button" onclick="addRow()">➕ Add Row</button>
+    <button type="submit">Generate NP-Chart</button><br><br>
+    <label>tell the input n which is constant</label><br>
+    <input type="text" name="n"><br><br>
+    <label>X Label:</label><br>
+    <input type="text" name="xlabel"><br><br>
+
+    <label>Y Label:</label><br>
+    <input type="text" name="ylabel"><br><br>
+
+
+    
+</form>
+    <h3>Graph Output:
+    </h3>
+    {% if show_graph %}
+        <img src="{{url_for('static',filename='graph.png')}}">
+    {% else %}
+        <p>No graph to display.</p>
+    {% endif %}
+    {% endblock %}
+
+<script>
+let rowCount = 1;
+
+function addRow() {
+    rowCount++;
+
+    let table = document.getElementById("dataTable");
+    let row = table.insertRow();
+
+    row.innerHTML = `
+        <td>${rowCount}</td>
+        <td><input type="text" name="d"></td>
+        
+    `;
+}
+</script>
+</body>
+</html>

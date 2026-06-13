@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Chart Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+<h1>📊 Statistical Process Control Dashboard</h1>
+
+{% block content %}
+<div class="container">
+
+    <div class="card">
+        <a href="/c">C-Chart</a>
+        <div class="desc">Defects per unit</div>
+    </div>
+
+    <div class="card">
+        <a href="/p">P-Chart</a>
+        <div class="desc">Proportion defective</div>
+    </div>
+
+    <div class="card">
+        <a href="/np">NP-Chart</a>
+        <div class="desc">Number of defectives</div>
+    </div>
+
+    <div class="card">
+        <a href="/xbar">X̄-Chart</a>
+        <div class="desc">Mean of subgroups</div>
+    </div>
+
+    <div class="card">
+        <a href="/r">R-Chart</a>
+        <div class="desc">Variation (range)</div>
+    </div>
+
+    <div class="card">
+        <a href="/general">General Charts</a>
+        <div class="desc">Various graph types</div>
+    </div>
+
+</div>
+{% endblock %}
+
+</body>
+</html>
